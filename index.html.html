@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Municipal Hospital - Hospital Management System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#eef2f7;color:#1e293b}
+.topbar{background:linear-gradient(90deg,#0f766e,#0ea5a5);color:white;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;box-shadow:0 4px 20px #0f766e33}
+.logo{font-size:24px;font-weight:900}.logo span{color:#facc15}
+.top-right{display:flex;gap:12px;align-items:center}
+.top-right input{padding:10px 14px;border:none;border-radius:999px;width:280px;outline:none}
+.top-right span{background:#ffffff22;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.layout{display:flex}
+.sidebar{width:250px;background:linear-gradient(180deg,#134e4a,#0f766e);min-height:100vh;padding:18px;display:flex;flex-direction:column;gap:9px;position:sticky;top:0}
+.sidebar h4{color:#99f6e4;font-size:12px;letter-spacing:1.5px;margin:10px 0 4px 8px}
+.nav-btn{background:#ffffff14;color:white;border:none;padding:13px 14px;text-align:left;border-radius:12px;cursor:pointer;font-size:15px}
+.nav-btn:hover{transform:translateX(4px);background:#ffffff2a}
+.nav-btn.active{background:#facc15;color:#134e4a;font-weight:800;box-shadow:0 6px 16px #facc1555}
+.danger{margin-top:auto;background:#ef4444;color:white;border:none;padding:13px;border-radius:12px;cursor:pointer;font-weight:700}
+.main{flex:1;padding:24px;max-width:1200px;margin:0 auto;width:100%}
+.hidden{display:none}
+h1{font-size:28px;margin-bottom:6px}.subtitle{color:#64748b;margin-bottom:20px;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:22px}
+.card{padding:22px;border-radius:18px;color:white;box-shadow:0 10px 25px #0002;position:relative;overflow:hidden}
+.card h3{font-size:14px;opacity:.9}.card p{font-size:34px;font-weight:900;margin-top:6px}
+.card::after{content:"";position:absolute;right:-20px;top:-20px;width:90px;height:90px;background:#ffffff22;border-radius:50%}
+.blue{background:linear-gradient(135deg,#2563eb,#60a5fa)}.green{background:linear-gradient(135deg,#16a34a,#4ade80)}.orange{background:linear-gradient(135deg,#ea580c,#fb923c)}.purple{background:linear-gradient(135deg,#7c3aed,#c084fc)}
+
+/* ===== COLOURFUL FILLING BOXES - MIXED COLOURS ===== */
+.form-card{background:white;padding:28px;border-radius:22px;box-shadow:0 10px 35px #0f172a12;margin-bottom:22px;border:1px solid #eef2f7;border-top:6px solid #0f766e}
+.form-card.billing{border-top-color:#7c3aed}.form-card.pharmacy{border-top-color:#ea580c}.form-card.record{border-top-color:#2563eb}.form-card.appoint{border-top-color:#16a34a}.form-card.doctor{border-top-color:#db2777}
+.form-card h2{font-size:21px;margin-bottom:4px}.form-card p{color:#64748b;font-size:13px;margin-bottom:20px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column}
+.field label{font-size:13px;font-weight:800;color:#334155;margin-bottom:7px;display:flex;gap:6px;align-items:center}
+.field label span{font-size:16px}
+.input-wrap{position:relative;display:flex;align-items:center}
+.input-wrap .icon{position:absolute;left:13px;font-size:18px;z-index:1}
+.input-wrap input,.input-wrap select{width:100%;padding:14px 14px 14px 42px;border:2px solid transparent;border-radius:14px;outline:none;font-size:15px;font-weight:600;transition:.2s}
+.input-wrap input::placeholder{color:#64748b;opacity:.8}
+.input-wrap input:focus,.input-wrap select:focus{border-color:#0f766e;background:#fff !important;box-shadow:0 0 0 4px #0f766e18;transform:translateY(-1px)}
+
+/* COLOURS FOR EACH BOX - MIXED LIKE YOU WANTED */
+.c1 input,.c1 select{background:#dbeafe;border-color:#93c5fd;color:#1e3a8a}
+.c2 input,.c2 select{background:#dcfce7;border-color:#86efac;color:#14532d}
+.c3 input,.c3 select{background:#fef9c3;border-color:#fde047;color:#713f12}
+.c4 input,.c4 select{background:#fee2e2;border-color:#fca5a5;color:#7f1d1d}
+.c5 input,.c5 select{background:#e9d5ff;border-color:#c084fc;color:#581c87}
+.c6 input,.c6 select{background:#fed7aa;border-color:#fdba74;color:#7c2d12}
+.c7 input,.c7 select{background:#ccfbf1;border-color:#5eead4;color:#134e4a}
+.c8 input,.c8 select{background:#fce7f3;border-color:#f9a8d4;color:#831843}
+.form .full{grid-column:span 2}
+.form button{grid-column:span 2;background:linear-gradient(90deg,#0f766e,#14b8a6);color:white;border:none;padding:16px;border-radius:14px;cursor:pointer;font-weight:800;font-size:16px;box-shadow:0 8px 20px #0f766e33;margin-top:4px}
+.form button:hover{transform:translateY(-2px)}
+
+.box{background:white;padding:22px;border-radius:20px;box-shadow:0 8px 30px #0f172a12;border:1px solid #eef2f7;overflow-x:auto;margin-bottom:22px}
+.box h3{margin-bottom:14px;font-size:18px}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:700px;overflow:hidden;border-radius:12px}
+th{background:#0f766e;color:white;padding:13px 12px;text-align:left;font-size:13px;text-transform:uppercase}
+th:first-child{border-radius:12px 0 0 0} th:last-child{border-radius:0 12px 0 0}
+td{padding:13px 12px;border-bottom:1px solid #f1f5f9;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
+.avatar{width:38px;height:38px;background:#ccfbf1;color:#0f766e;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-right:8px}
+.del{background:#fee2e2;color:#dc2626;border:none;padding:7px 12px;border-radius:999px;cursor:pointer;font-weight:700}
+.badge{padding:5px 12px;border-radius:999px;font-size:12px;font-weight:800;background:#dcfce7;color:#166534}
+.badge.admitted{background:#dbeafe;color:#1e40af}.badge.emergency{background:#fee2e2;color:#dc2626}.badge.discharged{background:#e2e8f0;color:#475569}
+.empty{padding:30px;text-align:center;color:#94a3b8}.empty b{font-size:40px;display:block}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.mini-card{background:white;border-radius:20px;padding:22px;box-shadow:0 8px 30px #0f172a12;border:1px solid #eef2f7;border-top:5px solid #2563eb}
+.mini-card.appoint{border-top-color:#ea580c}.mini-card h3{margin-bottom:14px;font-size:18px}
+.person{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#f8fafc;margin-bottom:10px;border:1px solid #f1f5f9}
+.person .info{flex:1}.person b{font-size:15px}.person small{color:#64748b;display:block}
+.appt{display:flex;gap:12px;padding:13px;border-radius:14px;background:#fff7ed;border:1px solid #ffedd5;margin-bottom:10px;align-items:center}
+.appt .time{background:#ea580c;color:white;padding:10px 12px;border-radius:12px;text-align:center;font-weight:800;line-height:1.1;min-width:70px}
+.appt .time small{font-size:11px;opacity:.9}
+@media(max-width:800px){.layout{flex-direction:column}.sidebar{width:100%;min-height:auto;position:static}.form{grid-template-columns:1fr}.form .full,.form button{grid-column:span 1}.split{grid-template-columns:1fr}.top-right input{width:100%}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="logo">🏥 Municipal <span>Hospital</span></div><div class="top-right"><input type="text" id="globalSearch" placeholder="🔍 Search patient..." oninput="globalSearch()"><span id="todayDate"></span></div></header>
+<div class="layout">
+<aside class="sidebar"><h4>MENU</h4>
+<button class="nav-btn active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+<button class="nav-btn" onclick="showPage('patients',this)">🧑‍🤒 Patients</button>
+<button class="nav-btn" onclick="showPage('doctors',this)">👨‍⚕️ Doctors / Staff</button>
+<button class="nav-btn" onclick="showPage('appointments',this)">📅 Appointments</button>
+<button class="nav-btn" onclick="showPage('billing',this)">💰 Billing</button>
+<button class="nav-btn" onclick="showPage('pharmacy',this)">💊 Pharmacy</button>
+<button class="nav-btn" onclick="showPage('records',this)">📁 Medical Records</button>
+<button class="danger" onclick="clearAll()">🗑️ Clear All Data</button></aside>
+<main class="main">
+
+<section id="dashboard" class="page">
+<h1>Welcome to Municipal Hospital 👋</h1><p class="subtitle">Manage patients, doctors, appointments and billing in one place.</p>
+<div class="cards"><div class="card blue"><h3>Total Patients</h3><p id="statPatients">0</p></div><div class="card green"><h3>Doctors / Staff</h3><p id="statDoctors">0</p></div><div class="card orange"><h3>Appointments Today</h3><p id="statAppointments">0</p></div><div class="card purple"><h3>Total Revenue (GH₵)</h3><p id="statRevenue">0</p></div></div>
+<div class="split"><div class="mini-card"><h3>🧑‍🤒 Recent Patients</h3><div id="recentPatients"></div></div><div class="mini-card appoint"><h3>📅 Today's Appointments</h3><div id="todayAppointments"></div></div></div>
+</section>
+
+<section id="patients" class="page hidden">
+<h1>Patients</h1><p class="subtitle">Register a new patient - Colourful boxes!</p>
+<div class="form-card"><h2>📝 Register Patient</h2><p>Each box has its own colour now</p>
+<form class="form" onsubmit="addPatient(event)">
+<div class="field"><label><span>🧑</span> Full Name *</label><div class="input-wrap c1"><span class="icon">🧑</span><input id="pName" placeholder="e.g. Kwame Mensah" required></div></div>
+<div class="field"><label><span>🎂</span> Age *</label><div class="input-wrap c2"><span class="icon">🎂</span><input id="pAge" type="number" placeholder="e.g. 28" required></div></div>
+<div class="field"><label><span>⚧️</span> Gender</label><div class="input-wrap c3"><span class="icon">⚧️</span><select id="pGender"><option>Male</option><option>Female</option></select></div></div>
+<div class="field"><label><span>📞</span> Phone Number *</label><div class="input-wrap c4"><span class="icon">📞</span><input id="pPhone" placeholder="e.g. 055 123 4567" required></div></div>
+<div class="field full"><label><span>🏠</span> Address</label><div class="input-wrap c5"><span class="icon">🏠</span><input id="pAddress" placeholder="e.g. Madina, Accra"></div></div>
+<div class="field"><label><span>🩸</span> Blood Group</label><div class="input-wrap c6"><span class="icon">🩸</span><input id="pBlood" placeholder="e.g. O+"></div></div>
+<div class="field"><label><span>🏥</span> Patient Status</label><div class="input-wrap c7"><span class="icon">🏥</span><select id="pStatus"><option>Outpatient</option><option>Admitted</option><option>Emergency</option><option>Discharged</option></select></div></div>
+<button type="submit">+ Add Patient</button></form></div>
+<div class="box"><h3>📋 All Patients Records</h3><div id="patientList"></div></div>
+</section>
+
+<section id="doctors" class="page hidden">
+<h1>Doctors / Staff</h1><p class="subtitle">Add doctors and hospital staff</p>
+<div class="form-card doctor"><h2>👨‍⚕️ Add Doctor / Staff</h2><p>Colourful boxes</p>
+<form class="form" onsubmit="addDoctor(event)">
+<div class="field"><label><span>👨‍⚕️</span> Full Name *</label><div class="input-wrap c1"><span class="icon">👨‍⚕️</span><input id="dName" placeholder="Dr. Ama Boateng" required></div></div>
+<div class="field"><label><span>🩺</span> Specialty *</label><div class="input-wrap c2"><span class="icon">🩺</span><input id="dSpecialty" placeholder="e.g. Cardiologist" required></div></div>
+<div class="field"><label><span>📞</span> Phone *</label><div class="input-wrap c4"><span class="icon">📞</span><input id="dPhone" placeholder="055..." required></div></div>
+<div class="field"><label><span>🕐</span> Shift</label><div class="input-wrap c3"><span class="icon">🕐</span><input id="dShift" placeholder="Morning / Night"></div></div>
+<button type="submit">+ Add Doctor / Staff</button></form></div>
+<div class="box"><h3>All Staff</h3><div id="doctorList"></div></div>
+</section>
+
+<section id="appointments" class="page hidden">
+<h1>Appointments</h1><p class="subtitle">Book appointment - Mixed Colours!</p>
+<div class="form-card appoint"><h2>📅 Book Appointment</h2><p>Each box has different colour</p>
+<form class="form" onsubmit="addAppointment(event)">
+<div class="field"><label><span>🧑</span> Patient</label><div class="input-wrap c1"><span class="icon">🧑</span><select id="aPatient"></select></div></div>
+<div class="field"><label><span>👨‍⚕️</span> Doctor</label><div class="input-wrap c2"><span class="icon">👨‍⚕️</span><select id="aDoctor"></select></div></div>
+<div class="field"><label><span>📅</span> Date</label><div class="input-wrap c6"><span class="icon">📅</span><input id="aDate" type="date" required></div></div>
+<div class="field"><label><span>⏰</span> Time</label><div class="input-wrap c5"><span class="icon">⏰</span><input id="aTime" type="time" required></div></div>
+<div class="field full"><label><span>💬</span> Reason / Symptoms</label><div class="input-wrap c7"><span class="icon">💬</span><input id="aReason" placeholder="e.g. Fever, Headache"></div></div>
+<button type="submit">+ Book Appointment</button></form></div>
+<div class="box"><h3>All Appointments</h3><div id="appointmentList"></div></div>
+</section>
+
+<section id="billing" class="page hidden">
+<h1>Billing</h1><p class="subtitle">Create bill and payment</p>
+<div class="form-card billing"><h2>💰 New Bill</h2><p>Colourful boxes</p>
+<form class="form" onsubmit="addBill(event)">
+<div class="field"><label><span>🧑</span> Patient</label><div class="input-wrap c1"><span class="icon">🧑</span><select id="bPatient"></select></div></div>
+<div class="field"><label><span>💉</span> Service *</label><div class="input-wrap c2"><span class="icon">💉</span><input id="bService" placeholder="Consultation, Lab, X-Ray" required></div></div>
+<div class="field"><label><span>💵</span> Amount GH₵ *</label><div class="input-wrap c3"><span class="icon">💵</span><input id="bAmount" type="number" placeholder="150" required></div></div>
+<div class="field"><label><span>💳</span> Payment Method</label><div class="input-wrap c5"><span class="icon">💳</span><select id="bMethod"><option>Cash</option><option>MoMo</option><option>Card</option><option>Insurance</option></select></div></div>
+<button type="submit">+ Add Bill</button></form></div>
+<div class="box"><h3>All Bills</h3><div id="billList"></div></div>
+</section>
+
+<section id="pharmacy" class="page hidden">
+<h1>Pharmacy</h1><p class="subtitle">Manage drug stock</p>
+<div class="form-card pharmacy"><h2>💊 Add Drug</h2><p>Colourful boxes</p>
+<form class="form" onsubmit="addDrug(event)">
+<div class="field"><label><span>💊</span> Drug Name *</label><div class="input-wrap c2"><span class="icon">💊</span><input id="drugName" placeholder="Paracetamol" required></div></div>
+<div class="field"><label><span>📦</span> Quantity *</label><div class="input-wrap c6"><span class="icon">📦</span><input id="drugQty" type="number" placeholder="100" required></div></div>
+<div class="field"><label><span>💵</span> Price GH₵ *</label><div class="input-wrap c3"><span class="icon">💵</span><input id="drugPrice" type="number" placeholder="15" required></div></div>
+<div class="field"><label><span>📅</span> Expiry Date</label><div class="input-wrap c4"><span class="icon">📅</span><input id="drugExpiry" type="date"></div></div>
+<button type="submit">+ Add Drug</button></form></div>
+<div class="box"><h3>Drug Stock</h3><div id="drugList"></div></div>
+</section>
+
+<section id="records" class="page hidden">
+<h1>Medical Records</h1><p class="subtitle">Save diagnosis and treatment</p>
+<div class="form-card record"><h2>📁 New Medical Record</h2><p>Colourful boxes</p>
+<form class="form" onsubmit="addRecord(event)">
+<div class="field"><label><span>🧑</span> Patient</label><div class="input-wrap c1"><span class="icon">🧑</span><select id="rPatient"></select></div></div>
+<div class="field"><label><span>👨‍⚕️</span> Doctor</label><div class="input-wrap c8"><span class="icon">👨‍⚕️</span><input id="rDoctor" placeholder="Doctor Name"></div></div>
+<div class="field"><label><span>🩺</span> Diagnosis *</label><div class="input-wrap c4"><span class="icon">🩺</span><input id="rDiagnosis" placeholder="Malaria" required></div></div>
+<div class="field"><label><span>💊</span> Treatment *</label><div class="input-wrap c2"><span class="icon">💊</span><input id="rTreatment" placeholder="Prescription" required></div></div>
+<button type="submit">+ Save Record</button></form></div>
+<div class="box"><h3>All Records</h3><div id="recordList"></div></div>
+</section>
+
+</main></div>
+<script>
+let patients = JSON.parse(localStorage.getItem('patients')||'[]');
+let doctors = JSON.parse(localStorage.getItem('doctors')||'[]');
+let appointments = JSON.parse(localStorage.getItem('appointments')||'[]');
+let bills = JSON.parse(localStorage.getItem('bills')||'[]');
+let drugs = JSON.parse(localStorage.getItem('drugs')||'[]');
+let records = JSON.parse(localStorage.getItem('records')||'[]');
+function saveAll(){localStorage.setItem('patients',JSON.stringify(patients));localStorage.setItem('doctors',JSON.stringify(doctors));localStorage.setItem('appointments',JSON.stringify(appointments));localStorage.setItem('bills',JSON.stringify(bills));localStorage.setItem('drugs',JSON.stringify(drugs));localStorage.setItem('records',JSON.stringify(records));renderAll();}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
+function table(h,r){if(!r.length)return '<div class="empty"><b>📂</b>No records yet. Add one above.</div>';return `<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.join('')}</table>`;}
+function badgeCls(s){s=s.toLowerCase();if(s.includes('admit'))return 'badge admitted';if(s.includes('emerg'))return 'badge emergency';if(s.includes('disch'))return 'badge discharged';return 'badge';}
+function addPatient(e){e.preventDefault();patients.push({name:pName.value,age:pAge.value,gender:pGender.value,phone:pPhone.value,address:pAddress.value,blood:pBlood.value,status:pStatus.value,date:new Date().toLocaleDateString()});e.target.reset();saveAll();alert('Patient Added ✅');}
+function addDoctor(e){e.preventDefault();doctors.push({name:dName.value,specialty:dSpecialty.value,phone:dPhone.value,shift:dShift.value});e.target.reset();saveAll();alert('Doctor Added ✅');}
+function addAppointment(e){e.preventDefault();appointments.push({patient:aPatient.value,doctor:aDoctor.value,date:aDate.value,time:aTime.value,reason:aReason.value});e.target.reset();saveAll();alert('Appointment Booked ✅');}
+function addBill(e){e.preventDefault();bills.push({patient:bPatient.value,service:bService.value,amount:Number(bAmount.value),method:bMethod.value,date:new Date().toLocaleDateString()});e.target.reset();saveAll();alert('Bill Saved ✅');}
+function addDrug(e){e.preventDefault();drugs.push({name:drugName.value,qty:drugQty.value,price:drugPrice.value,expiry:drugExpiry.value});e.target.reset();saveAll();alert('Drug Added ✅');}
+function addRecord(e){e.preventDefault();records.push({patient:rPatient.value,diagnosis:rDiagnosis.value,treatment:rTreatment.value,doctor:rDoctor.value,date:new Date().toLocaleDateString()});e.target.reset();saveAll();alert('Record Saved ✅');}
+function del(a,i){if(confirm('Delete this?')){a.splice(i,1);saveAll();}}
+function clearAll(){if(confirm('Clear ALL hospital data?')){localStorage.clear();location.reload();}}
+function globalSearch(){let q=document.getElementById('globalSearch').value.toLowerCase();let f=patients.filter(p=>p.name.toLowerCase().includes(q));if(q)alert(f.length?'Found: '+f.map(p=>p.name).join(', '):'No patient found');}
+function renderAll(){
+document.getElementById('todayDate').textContent=new Date().toDateString();
+document.getElementById('statPatients').textContent=patients.length;
+document.getElementById('statDoctors').textContent=doctors.length;
+let today=new Date().toISOString().slice(0,10);
+document.getElementById('statAppointments').textContent=appointments.filter(a=>a.date===today).length;
+document.getElementById('statRevenue').textContent=bills.reduce((s,b)=>s+b.amount,0).toLocaleString();
+document.getElementById('patientList').innerHTML=table(['Patient','Age','Gender','Phone','Blood','Status','Date',''],patients.map((p,i)=>`<tr><td><span class="avatar">${p.name.charAt(0).toUpperCase()}</span><b>${p.name}</b><br><small style="color:#64748b">${p.address||''}</small></td><td>${p.age}</td><td>${p.gender}</td><td>${p.phone}</td><td>${p.blood}</td><td><span class="${badgeCls(p.status)}">${p.status}</span></td><td>${p.date}</td><td><button class="del" onclick="del(patients,${i})">Delete</button></td></tr>`));
+document.getElementById('doctorList').innerHTML=table(['Name','Specialty','Phone','Shift',''],doctors.map((d,i)=>`<tr><td><span class="avatar">👨‍⚕️</span><b>${d.name}</b></td><td>${d.specialty}</td><td>${d.phone}</td><td>${d.shift}</td><td><button class="del" onclick="del(doctors,${i})">Delete</button></td></tr>`));
+document.getElementById('appointmentList').innerHTML=table(['Patient','Doctor','Date','Time','Reason',''],appointments.map((a,i)=>`<tr><td>${a.patient}</td><td>${a.doctor}</td><td>${a.date}</td><td>${a.time}</td><td>${a.reason}</td><td><button class="del" onclick="del(appointments,${i})">Delete</button></td></tr>`));
+document.getElementById('billList').innerHTML=table(['Patient','Service','Amount','Method','Date',''],bills.map((b,i)=>`<tr><td>${b.patient}</td><td>${b.service}</td><td><b>GH₵ ${b.amount}</b></td><td>${b.method}</td><td>${b.date}</td><td><button class="del" onclick="del(bills,${i})">Delete</button></td></tr>`));
+document.getElementById('drugList').innerHTML=table(['Drug','Qty','Price','Expiry',''],drugs.map((d,i)=>`<tr><td><b>${d.name}</b></td><td>${d.qty}</td><td>GH₵ ${d.price}</td><td>${d.expiry}</td><td><button class="del" onclick="del(drugs,${i})">Delete</button></td></tr>`));
+document.getElementById('recordList').innerHTML=table(['Patient','Diagnosis','Treatment','Doctor','Date',''],records.map((r,i)=>`<tr><td>${r.patient}</td><td>${r.diagnosis}</td><td>${r.treatment}</td><td>${r.doctor}</td><td>${r.date}</td><td><button class="del" onclick="del(records,${i})">Delete</button></td></tr>`));
+document.getElementById('recentPatients').innerHTML=patients.slice(-3).reverse().map(p=>`<div class="person"><span class="avatar">${p.name.charAt(0).toUpperCase()}</span><div class="info"><b>${p.name}</b><small>📞 ${p.phone} • ${p.address||'No address'}</small></div><span class="${badgeCls(p.status)}">${p.status}</span></div>`).join('')||'<div class="empty"><b>🧑‍🤒</b>No patients yet</div>';
+document.getElementById('todayAppointments').innerHTML=appointments.filter(a=>a.date===today).map(a=>`<div class="appt"><div class="time">${a.time}<br><small>TODAY</small></div><div><b>${a.patient}</b><br><small>👨‍⚕️ ${a.doctor} • ${a.reason||'Checkup'}</small></div></div>`).join('')||'<div class="empty"><b>📅</b>No appointments today</div>';
+let pOpts=patients.map(p=>`<option>${p.name}</option>`).join('')||'<option>No Patient Yet - Add Patient First</option>';
+let dOpts=doctors.map(d=>`<option>${d.name} - ${d.specialty}</option>`).join('')||'<option>No Doctor Yet - Add Doctor First</option>';
+['aPatient','bPatient','rPatient'].forEach(id=>document.getElementById(id).innerHTML=pOpts);
+['aDoctor'].forEach(id=>document.getElementById(id).innerHTML=dOpts);
+}
+renderAll();
+</script>
+</body>
+</html>
