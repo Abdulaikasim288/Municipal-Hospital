@@ -217,5 +217,22 @@ let dOpts=doctors.map(d=>`<option>${d.name} - ${d.specialty}</option>`).join('')
 }
 renderAll();
 </script>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyCNnTrPMA8FjajbUexAFScecSUIK10oxSs",
+  authDomain: "municipal-hospital-2ae0c.firebaseapp.com",
+  databaseURL: "https://municipal-hospital-2ae0c-default-rtdb.firebaseio.com",
+  projectId: "municipal-hospital-2ae0c",
+  storageBucket: "municipal-hospital-2ae0c.firebasestorage.app",
+  messagingSenderId: "462310307680",
+  appId: "1:462310307680:web:f3122400063e17ec3c9005"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+window.db = db;
+console.log("Firebase Connected ✅");
+</script>
 </body>
 </html>
