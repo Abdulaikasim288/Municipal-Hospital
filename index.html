@@ -175,14 +175,54 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 </section>
 
 </main></div>
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-let patients = JSON.parse(localStorage.getItem('patients')||'[]');
-let doctors = JSON.parse(localStorage.getItem('doctors')||'[]');
-let appointments = JSON.parse(localStorage.getItem('appointments')||'[]');
-let bills = JSON.parse(localStorage.getItem('bills')||'[]');
-let drugs = JSON.parse(localStorage.getItem('drugs')||'[]');
-let records = JSON.parse(localStorage.getItem('records')||'[]');
-function saveAll(){localStorage.setItem('patients',JSON.stringify(patients));localStorage.setItem('doctors',JSON.stringify(doctors));localStorage.setItem('appointments',JSON.stringify(appointments));localStorage.setItem('bills',JSON.stringify(bills));localStorage.setItem('drugs',JSON.stringify(drugs));localStorage.setItem('records',JSON.stringify(records));renderAll();}
+const firebaseConfig = {
+  apiKey: "AIzaSyCNnTrPMA8FjajbUexAFScecSUIK10oxSs",
+  authDomain: "municipal-hospital-2ae0c.firebaseapp.com",
+  databaseURL: "https://municipal-hospital-2ae0c-default-rtdb.firebaseio.com",
+  projectId: "municipal-hospital-2ae0c",
+  storageBucket: "municipal-hospital-2ae0c.firebasestorage.app",
+  messagingSenderId: "462310307680",
+  appId: "1:462310307680:web:f3122400063e17ec3c9005"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+let patients = [];
+let doctors = [];
+let appointments = [];
+let bills = [];
+let drugs = [];
+let records = [];
+
+// Load from Firebase
+async function loadAll(){
+  const doc = await db.collection("hospital").doc("main").get();
+  if(doc.exists){
+    const data = doc.data();
+    patients = data.patients || [];
+    doctors = data.doctors || [];
+    appointments = data.appointments || [];
+    bills = data.bills || [];
+    drugs = data.drugs || [];
+    records = data.records || [];
+  }
+  if(typeof showPage === 'function') showPage('dashboard');
+}
+
+// Save to Firebase - works on phone + computer
+function saveAll(){
+  return db.collection("hospital").doc("main").set({
+    patients, doctors, appointments, bills, drugs, records
+  });
+}
+
+loadAll();
+</script>
 function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
 function table(h,r){if(!r.length)return '<div class="empty"><b>📂</b>No records yet. Add one above.</div>';return `<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.join('')}</table>`;}
 function badgeCls(s){s=s.toLowerCase();if(s.includes('admit'))return 'badge admitted';if(s.includes('emerg'))return 'badge emergency';if(s.includes('disch'))return 'badge discharged';return 'badge';}
