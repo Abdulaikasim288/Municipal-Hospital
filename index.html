@@ -20,15 +20,13 @@ body{background:#eef2f7;color:#1e293b}
 .nav-btn.active{background:#facc15;color:#134e4a;font-weight:800;box-shadow:0 6px 16px #facc1555}
 .danger{margin-top:auto;background:#ef4444;color:white;border:none;padding:13px;border-radius:12px;cursor:pointer;font-weight:700}
 .main{flex:1;padding:24px;max-width:1200px;margin:0 auto;width:100%}
-.hidden{display:none}
+.hidden{display:none !important}
 h1{font-size:28px;margin-bottom:6px}.subtitle{color:#64748b;margin-bottom:20px;font-size:14px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:22px}
 .card{padding:22px;border-radius:18px;color:white;box-shadow:0 10px 25px #0002;position:relative;overflow:hidden}
 .card h3{font-size:14px;opacity:.9}.card p{font-size:34px;font-weight:900;margin-top:6px}
 .card::after{content:"";position:absolute;right:-20px;top:-20px;width:90px;height:90px;background:#ffffff22;border-radius:50%}
 .blue{background:linear-gradient(135deg,#2563eb,#60a5fa)}.green{background:linear-gradient(135deg,#16a34a,#4ade80)}.orange{background:linear-gradient(135deg,#ea580c,#fb923c)}.purple{background:linear-gradient(135deg,#7c3aed,#c084fc)}
-
-/* ===== COLOURFUL FILLING BOXES - MIXED COLOURS ===== */
 .form-card{background:white;padding:28px;border-radius:22px;box-shadow:0 10px 35px #0f172a12;margin-bottom:22px;border:1px solid #eef2f7;border-top:6px solid #0f766e}
 .form-card.billing{border-top-color:#7c3aed}.form-card.pharmacy{border-top-color:#ea580c}.form-card.record{border-top-color:#2563eb}.form-card.appoint{border-top-color:#16a34a}.form-card.doctor{border-top-color:#db2777}
 .form-card h2{font-size:21px;margin-bottom:4px}.form-card p{color:#64748b;font-size:13px;margin-bottom:20px}
@@ -41,8 +39,6 @@ h1{font-size:28px;margin-bottom:6px}.subtitle{color:#64748b;margin-bottom:20px;f
 .input-wrap input,.input-wrap select{width:100%;padding:14px 14px 14px 42px;border:2px solid transparent;border-radius:14px;outline:none;font-size:15px;font-weight:600;transition:.2s}
 .input-wrap input::placeholder{color:#64748b;opacity:.8}
 .input-wrap input:focus,.input-wrap select:focus{border-color:#0f766e;background:#fff !important;box-shadow:0 0 0 4px #0f766e18;transform:translateY(-1px)}
-
-/* COLOURS FOR EACH BOX - MIXED LIKE YOU WANTED */
 .c1 input,.c1 select{background:#dbeafe;border-color:#93c5fd;color:#1e3a8a}
 .c2 input,.c2 select{background:#dcfce7;border-color:#86efac;color:#14532d}
 .c3 input,.c3 select{background:#fef9c3;border-color:#fde047;color:#713f12}
@@ -54,7 +50,6 @@ h1{font-size:28px;margin-bottom:6px}.subtitle{color:#64748b;margin-bottom:20px;f
 .form .full{grid-column:span 2}
 .form button{grid-column:span 2;background:linear-gradient(90deg,#0f766e,#14b8a6);color:white;border:none;padding:16px;border-radius:14px;cursor:pointer;font-weight:800;font-size:16px;box-shadow:0 8px 20px #0f766e33;margin-top:4px}
 .form button:hover{transform:translateY(-2px)}
-
 .box{background:white;padding:22px;border-radius:20px;box-shadow:0 8px 30px #0f172a12;border:1px solid #eef2f7;overflow-x:auto;margin-bottom:22px}
 .box h3{margin-bottom:14px;font-size:18px}
 table{width:100%;border-collapse:separate;border-spacing:0;min-width:700px;overflow:hidden;border-radius:12px}
@@ -91,13 +86,11 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button class="nav-btn" onclick="showPage('records',this)">📁 Medical Records</button>
 <button class="danger" onclick="clearAll()">🗑️ Clear All Data</button></aside>
 <main class="main">
-
 <section id="dashboard" class="page">
 <h1>Welcome to Municipal Hospital 👋</h1><p class="subtitle">Manage patients, doctors, appointments and billing in one place.</p>
 <div class="cards"><div class="card blue"><h3>Total Patients</h3><p id="statPatients">0</p></div><div class="card green"><h3>Doctors / Staff</h3><p id="statDoctors">0</p></div><div class="card orange"><h3>Appointments Today</h3><p id="statAppointments">0</p></div><div class="card purple"><h3>Total Revenue (GH₵)</h3><p id="statRevenue">0</p></div></div>
 <div class="split"><div class="mini-card"><h3>🧑‍🤒 Recent Patients</h3><div id="recentPatients"></div></div><div class="mini-card appoint"><h3>📅 Today's Appointments</h3><div id="todayAppointments"></div></div></div>
 </section>
-
 <section id="patients" class="page hidden">
 <h1>Patients</h1><p class="subtitle">Register a new patient - Colourful boxes!</p>
 <div class="form-card"><h2>📝 Register Patient</h2><p>Each box has its own colour now</p>
@@ -112,7 +105,6 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button type="submit">+ Add Patient</button></form></div>
 <div class="box"><h3>📋 All Patients Records</h3><div id="patientList"></div></div>
 </section>
-
 <section id="doctors" class="page hidden">
 <h1>Doctors / Staff</h1><p class="subtitle">Add doctors and hospital staff</p>
 <div class="form-card doctor"><h2>👨‍⚕️ Add Doctor / Staff</h2><p>Colourful boxes</p>
@@ -124,7 +116,6 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button type="submit">+ Add Doctor / Staff</button></form></div>
 <div class="box"><h3>All Staff</h3><div id="doctorList"></div></div>
 </section>
-
 <section id="appointments" class="page hidden">
 <h1>Appointments</h1><p class="subtitle">Book appointment - Mixed Colours!</p>
 <div class="form-card appoint"><h2>📅 Book Appointment</h2><p>Each box has different colour</p>
@@ -137,7 +128,6 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button type="submit">+ Book Appointment</button></form></div>
 <div class="box"><h3>All Appointments</h3><div id="appointmentList"></div></div>
 </section>
-
 <section id="billing" class="page hidden">
 <h1>Billing</h1><p class="subtitle">Create bill and payment</p>
 <div class="form-card billing"><h2>💰 New Bill</h2><p>Colourful boxes</p>
@@ -149,7 +139,6 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button type="submit">+ Add Bill</button></form></div>
 <div class="box"><h3>All Bills</h3><div id="billList"></div></div>
 </section>
-
 <section id="pharmacy" class="page hidden">
 <h1>Pharmacy</h1><p class="subtitle">Manage drug stock</p>
 <div class="form-card pharmacy"><h2>💊 Add Drug</h2><p>Colourful boxes</p>
@@ -161,7 +150,6 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button type="submit">+ Add Drug</button></form></div>
 <div class="box"><h3>Drug Stock</h3><div id="drugList"></div></div>
 </section>
-
 <section id="records" class="page hidden">
 <h1>Medical Records</h1><p class="subtitle">Save diagnosis and treatment</p>
 <div class="form-card record"><h2>📁 New Medical Record</h2><p>Colourful boxes</p>
@@ -173,11 +161,9 @@ tr:nth-child(even) td{background:#f8fafc} tr:hover td{background:#ecfdf5}
 <button type="submit">+ Save Record</button></form></div>
 <div class="box"><h3>All Records</h3><div id="recordList"></div></div>
 </section>
-
 </main></div>
-</script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCNnTrPMA8FjajbUexAFScecSUIK10oxSs",
@@ -188,98 +174,57 @@ const firebaseConfig = {
   messagingSenderId: "462310307680",
   appId: "1:462310307680:web:f3122400063e17ec3c9005"
 };
-
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-let patients = [];
-let doctors = [];
-let appointments = [];
-let bills = [];
-let drugs = [];
-let records = [];
-
-// Load from Firebase
-async function loadAll(){
-  const doc = await db.collection("hospital").doc("main").get();
-  if(doc.exists){
-    const data = doc.data();
-    patients = data.patients || [];
-    doctors = data.doctors || [];
-    appointments = data.appointments || [];
-    bills = data.bills || [];
-    drugs = data.drugs || [];
-    records = data.records || [];
-  }
-  if(typeof showPage === 'function') showPage('dashboard');
-}
-
-// Save to Firebase - works on phone + computer
-function saveAll(){
-  return db.collection("hospital").doc("main").set({
-    patients, doctors, appointments, bills, drugs, records
-  });
-}
-
-loadAll();
-</script>
-function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
-function table(h,r){if(!r.length)return '<div class="empty"><b>📂</b>No records yet. Add one above.</div>';return `<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.join('')}</table>`;}
-function badgeCls(s){s=s.toLowerCase();if(s.includes('admit'))return 'badge admitted';if(s.includes('emerg'))return 'badge emergency';if(s.includes('disch'))return 'badge discharged';return 'badge';}
-function addPatient(e){e.preventDefault();patients.push({name:pName.value,age:pAge.value,gender:pGender.value,phone:pPhone.value,address:pAddress.value,blood:pBlood.value,status:pStatus.value,date:new Date().toLocaleDateString()});e.target.reset();saveAll();alert('Patient Added ✅');}
-function addDoctor(e){e.preventDefault();doctors.push({name:dName.value,specialty:dSpecialty.value,phone:dPhone.value,shift:dShift.value});e.target.reset();saveAll();alert('Doctor Added ✅');}
-function addAppointment(e){e.preventDefault();appointments.push({patient:aPatient.value,doctor:aDoctor.value,date:aDate.value,time:aTime.value,reason:aReason.value});e.target.reset();saveAll();alert('Appointment Booked ✅');}
-function addBill(e){e.preventDefault();bills.push({patient:bPatient.value,service:bService.value,amount:Number(bAmount.value),method:bMethod.value,date:new Date().toLocaleDateString()});e.target.reset();saveAll();alert('Bill Saved ✅');}
-function addDrug(e){e.preventDefault();drugs.push({name:drugName.value,qty:drugQty.value,price:drugPrice.value,expiry:drugExpiry.value});e.target.reset();saveAll();alert('Drug Added ✅');}
-function addRecord(e){e.preventDefault();records.push({patient:rPatient.value,diagnosis:rDiagnosis.value,treatment:rTreatment.value,doctor:rDoctor.value,date:new Date().toLocaleDateString()});e.target.reset();saveAll();alert('Record Saved ✅');}
-function del(a,i){if(confirm('Delete this?')){a.splice(i,1);saveAll();}}
-function clearAll(){if(confirm('Clear ALL hospital data?')){localStorage.clear();location.reload();}}
-function globalSearch(){let q=document.getElementById('globalSearch').value.toLowerCase();let f=patients.filter(p=>p.name.toLowerCase().includes(q));if(q)alert(f.length?'Found: '+f.map(p=>p.name).join(', '):'No patient found');}
- function showPage(page, btn){
-  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
-  var el = document.getElementById(page);
-  if(el) el.style.display='block';
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
+const db = firebase.database().ref('hospital');
+let patients = [], doctors = [], appointments = [], bills = [], drugs = [], records = [];
+let firebaseReady = false;
+// Load from Firebase live - updates on all devices instantly
+db.on('value', (snap) => {
+  const d = snap.val() || {};
+  patients = d.patients || []; doctors = d.doctors || []; appointments = d.appointments || []; bills = d.bills || []; drugs = d.drugs || []; records = d.records || [];
+  firebaseReady = true; saveLocal(); renderAll();
+}, () => { loadLocal(); renderAll(); });
+function saveLocal(){ try{ localStorage.setItem('patients',JSON.stringify(patients)); localStorage.setItem('doctors',JSON.stringify(doctors)); localStorage.setItem('appointments',JSON.stringify(appointments)); localStorage.setItem('bills',JSON.stringify(bills)); localStorage.setItem('drugs',JSON.stringify(drugs)); localStorage.setItem('records',JSON.stringify(records)); }catch(e){} }
+function loadLocal(){ try{ patients=JSON.parse(localStorage.getItem('patients')||'[]'); doctors=JSON.parse(localStorage.getItem('doctors')||'[]'); appointments=JSON.parse(localStorage.getItem('appointments')||'[]'); bills=JSON.parse(localStorage.getItem('bills')||'[]'); drugs=JSON.parse(localStorage.getItem('drugs')||'[]'); records=JSON.parse(localStorage.getItem('records')||'[]'); }catch(e){} }
+function saveAll(){ saveLocal(); db.set({patients,doctors,appointments,bills,drugs,records}).catch(()=>{}); renderAll(); }
+function showPage(id,btn){ document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden')); var el=document.getElementById(id); if(el) el.classList.remove('hidden'); document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); }
+function table(h,r){ if(!r.length) return '<div class="empty"><b>📂</b>No records yet. Add one above.</div>'; return `<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.join('')}</table>`; }
+function badgeCls(s){ s=String(s||'').toLowerCase(); if(s.includes('admit')) return 'badge admitted'; if(s.includes('emerg')) return 'badge emergency'; if(s.includes('disch')) return 'badge discharged'; return 'badge'; }
+function addPatient(e){ e.preventDefault(); patients.push({name:pName.value,age:pAge.value,gender:pGender.value,phone:pPhone.value,address:pAddress.value,blood:pBlood.value,status:pStatus.value,date:new Date().toLocaleDateString()}); e.target.reset(); saveAll(); alert('Patient Added ✅ Saved to Firebase'); }
+function addDoctor(e){ e.preventDefault(); doctors.push({name:dName.value,specialty:dSpecialty.value,phone:dPhone.value,shift:dShift.value}); e.target.reset(); saveAll(); alert('Doctor Added ✅'); }
+function addAppointment(e){ e.preventDefault(); appointments.push({patient:aPatient.value,doctor:aDoctor.value,date:aDate.value,time:aTime.value,reason:aReason.value}); e.target.reset(); saveAll(); alert('Appointment Booked ✅'); }
+function addBill(e){ e.preventDefault(); bills.push({patient:bPatient.value,service:bService.value,amount:Number(bAmount.value),method:bMethod.value,date:new Date().toLocaleDateString()}); e.target.reset(); saveAll(); alert('Bill Saved ✅'); }
+function addDrug(e){ e.preventDefault(); drugs.push({name:drugName.value,qty:drugQty.value,price:drugPrice.value,expiry:drugExpiry.value}); e.target.reset(); saveAll(); alert('Drug Added ✅'); }
+function addRecord(e){ e.preventDefault(); records.push({patient:rPatient.value,diagnosis:rDiagnosis.value,treatment:rTreatment.value,doctor:rDoctor.value,date:new Date().toLocaleDateString()}); e.target.reset(); saveAll(); alert('Record Saved ✅'); }
+function delPatient(i){ if(confirm('Delete this patient?')){ patients.splice(i,1); saveAll(); } }
+function delDoctor(i){ if(confirm('Delete this?')){ doctors.splice(i,1); saveAll(); } }
+function delAppointment(i){ if(confirm('Delete this?')){ appointments.splice(i,1); saveAll(); } }
+function delBill(i){ if(confirm('Delete this?')){ bills.splice(i,1); saveAll(); } }
+function delDrug(i){ if(confirm('Delete this?')){ drugs.splice(i,1); saveAll(); } }
+function delRecord(i){ if(confirm('Delete this?')){ records.splice(i,1); saveAll(); } }
+function clearAll(){ if(confirm('Clear ALL hospital data from Firebase?')){ patients=[];doctors=[];appointments=[];bills=[];drugs=[];records=[]; saveAll(); } }
+function globalSearch(){ let q=document.getElementById('globalSearch').value.toLowerCase().trim(); if(!q) return; let f=patients.filter(p=>p.name.toLowerCase().includes(q)); alert(f.length?'Found: '+f.map(p=>p.name).join(', '):'No patient found'); }
 function renderAll(){
 document.getElementById('todayDate').textContent=new Date().toDateString();
 document.getElementById('statPatients').textContent=patients.length;
 document.getElementById('statDoctors').textContent=doctors.length;
 let today=new Date().toISOString().slice(0,10);
 document.getElementById('statAppointments').textContent=appointments.filter(a=>a.date===today).length;
-document.getElementById('statRevenue').textContent=bills.reduce((s,b)=>s+b.amount,0).toLocaleString();
-document.getElementById('patientList').innerHTML=table(['Patient','Age','Gender','Phone','Blood','Status','Date',''],patients.map((p,i)=>`<tr><td><span class="avatar">${p.name.charAt(0).toUpperCase()}</span><b>${p.name}</b><br><small style="color:#64748b">${p.address||''}</small></td><td>${p.age}</td><td>${p.gender}</td><td>${p.phone}</td><td>${p.blood}</td><td><span class="${badgeCls(p.status)}">${p.status}</span></td><td>${p.date}</td><td><button class="del" onclick="del(patients,${i})">Delete</button></td></tr>`));
-document.getElementById('doctorList').innerHTML=table(['Name','Specialty','Phone','Shift',''],doctors.map((d,i)=>`<tr><td><span class="avatar">👨‍⚕️</span><b>${d.name}</b></td><td>${d.specialty}</td><td>${d.phone}</td><td>${d.shift}</td><td><button class="del" onclick="del(doctors,${i})">Delete</button></td></tr>`));
-document.getElementById('appointmentList').innerHTML=table(['Patient','Doctor','Date','Time','Reason',''],appointments.map((a,i)=>`<tr><td>${a.patient}</td><td>${a.doctor}</td><td>${a.date}</td><td>${a.time}</td><td>${a.reason}</td><td><button class="del" onclick="del(appointments,${i})">Delete</button></td></tr>`));
-document.getElementById('billList').innerHTML=table(['Patient','Service','Amount','Method','Date',''],bills.map((b,i)=>`<tr><td>${b.patient}</td><td>${b.service}</td><td><b>GH₵ ${b.amount}</b></td><td>${b.method}</td><td>${b.date}</td><td><button class="del" onclick="del(bills,${i})">Delete</button></td></tr>`));
-document.getElementById('drugList').innerHTML=table(['Drug','Qty','Price','Expiry',''],drugs.map((d,i)=>`<tr><td><b>${d.name}</b></td><td>${d.qty}</td><td>GH₵ ${d.price}</td><td>${d.expiry}</td><td><button class="del" onclick="del(drugs,${i})">Delete</button></td></tr>`));
-document.getElementById('recordList').innerHTML=table(['Patient','Diagnosis','Treatment','Doctor','Date',''],records.map((r,i)=>`<tr><td>${r.patient}</td><td>${r.diagnosis}</td><td>${r.treatment}</td><td>${r.doctor}</td><td>${r.date}</td><td><button class="del" onclick="del(records,${i})">Delete</button></td></tr>`));
-document.getElementById('recentPatients').innerHTML=patients.slice(-3).reverse().map(p=>`<div class="person"><span class="avatar">${p.name.charAt(0).toUpperCase()}</span><div class="info"><b>${p.name}</b><small>📞 ${p.phone} • ${p.address||'No address'}</small></div><span class="${badgeCls(p.status)}">${p.status}</span></div>`).join('')||'<div class="empty"><b>🧑‍🤒</b>No patients yet</div>';
+document.getElementById('statRevenue').textContent=bills.reduce((s,b)=>s+(Number(b.amount)||0),0).toLocaleString();
+document.getElementById('patientList').innerHTML=table(['Patient','Age','Gender','Phone','Blood','Status','Date',''],patients.map((p,i)=>`<tr><td><span class="avatar">${(p.name||'?').charAt(0).toUpperCase()}</span><b>${p.name}</b><br><small style="color:#64748b">${p.address||''}</small></td><td>${p.age}</td><td>${p.gender}</td><td>${p.phone}</td><td>${p.blood}</td><td><span class="${badgeCls(p.status)}">${p.status}</span></td><td>${p.date}</td><td><button class="del" onclick="delPatient(${i})">Delete</button></td></tr>`));
+document.getElementById('doctorList').innerHTML=table(['Name','Specialty','Phone','Shift',''],doctors.map((d,i)=>`<tr><td><span class="avatar">👨‍⚕️</span><b>${d.name}</b></td><td>${d.specialty}</td><td>${d.phone}</td><td>${d.shift}</td><td><button class="del" onclick="delDoctor(${i})">Delete</button></td></tr>`));
+document.getElementById('appointmentList').innerHTML=table(['Patient','Doctor','Date','Time','Reason',''],appointments.map((a,i)=>`<tr><td>${a.patient}</td><td>${a.doctor}</td><td>${a.date}</td><td>${a.time}</td><td>${a.reason}</td><td><button class="del" onclick="delAppointment(${i})">Delete</button></td></tr>`));
+document.getElementById('billList').innerHTML=table(['Patient','Service','Amount','Method','Date',''],bills.map((b,i)=>`<tr><td>${b.patient}</td><td>${b.service}</td><td><b>GH₵ ${b.amount}</b></td><td>${b.method}</td><td>${b.date}</td><td><button class="del" onclick="delBill(${i})">Delete</button></td></tr>`));
+document.getElementById('drugList').innerHTML=table(['Drug','Qty','Price','Expiry',''],drugs.map((d,i)=>`<tr><td><b>${d.name}</b></td><td>${d.qty}</td><td>GH₵ ${d.price}</td><td>${d.expiry}</td><td><button class="del" onclick="delDrug(${i})">Delete</button></td></tr>`));
+document.getElementById('recordList').innerHTML=table(['Patient','Diagnosis','Treatment','Doctor','Date',''],records.map((r,i)=>`<tr><td>${r.patient}</td><td>${r.diagnosis}</td><td>${r.treatment}</td><td>${r.doctor}</td><td>${r.date}</td><td><button class="del" onclick="delRecord(${i})">Delete</button></td></tr>`));
+document.getElementById('recentPatients').innerHTML=patients.slice(-3).reverse().map(p=>`<div class="person"><span class="avatar">${(p.name||'?').charAt(0).toUpperCase()}</span><div class="info"><b>${p.name}</b><small>📞 ${p.phone} • ${p.address||'No address'}</small></div><span class="${badgeCls(p.status)}">${p.status}</span></div>`).join('')||'<div class="empty"><b>🧑‍🤒</b>No patients yet</div>';
 document.getElementById('todayAppointments').innerHTML=appointments.filter(a=>a.date===today).map(a=>`<div class="appt"><div class="time">${a.time}<br><small>TODAY</small></div><div><b>${a.patient}</b><br><small>👨‍⚕️ ${a.doctor} • ${a.reason||'Checkup'}</small></div></div>`).join('')||'<div class="empty"><b>📅</b>No appointments today</div>';
 let pOpts=patients.map(p=>`<option>${p.name}</option>`).join('')||'<option>No Patient Yet - Add Patient First</option>';
 let dOpts=doctors.map(d=>`<option>${d.name} - ${d.specialty}</option>`).join('')||'<option>No Doctor Yet - Add Doctor First</option>';
 ['aPatient','bPatient','rPatient'].forEach(id=>document.getElementById(id).innerHTML=pOpts);
 ['aDoctor'].forEach(id=>document.getElementById(id).innerHTML=dOpts);
 }
-renderAll();
-</script>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyCNnTrPMA8FjajbUexAFScecSUIK10oxSs",
-  authDomain: "municipal-hospital-2ae0c.firebaseapp.com",
-  databaseURL: "https://municipal-hospital-2ae0c-default-rtdb.firebaseio.com",
-  projectId: "municipal-hospital-2ae0c",
-  storageBucket: "municipal-hospital-2ae0c.firebasestorage.app",
-  messagingSenderId: "462310307680",
-  appId: "1:462310307680:web:f3122400063e17ec3c9005"
-};
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-window.db = db;
-console.log("Firebase Connected ✅");
+loadLocal(); renderAll();
 </script>
 </body>
 </html>
