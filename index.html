@@ -235,12 +235,11 @@ function addRecord(e){e.preventDefault();records.push({patient:rPatient.value,di
 function del(a,i){if(confirm('Delete this?')){a.splice(i,1);saveAll();}}
 function clearAll(){if(confirm('Clear ALL hospital data?')){localStorage.clear();location.reload();}}
 function globalSearch(){let q=document.getElementById('globalSearch').value.toLowerCase();let f=patients.filter(p=>p.name.toLowerCase().includes(q));if(q)alert(f.length?'Found: '+f.map(p=>p.name).join(', '):'No patient found');}
-  function showPage(page){
+ function showPage(page, btn){
   document.querySelectorAll('.page').forEach(p=>p.style.display='none');
-  var el = document.getElementById('page-'+page) || document.getElementById(page);
+  var el = document.getElementById(page);
   if(el) el.style.display='block';
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  var btn = document.querySelector('[onclick="showPage(\''+page+'\')"]');
   if(btn) btn.classList.add('active');
 }
 function renderAll(){
